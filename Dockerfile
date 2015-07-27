@@ -5,21 +5,6 @@ FROM ubuntu:12.04
 
 MAINTAINER Kevin Moore "github@j832.com"
 
-### phantom JS
-
-RUN apt-get install --no-install-recommends -y -q \
-  build-essential g++ flex bison gperf ruby perl \
-  libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev \
-  libpng-dev libjpeg-dev python libx11-dev libxext-dev
-
-RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.0.0-source.zip > phantomjs-2-source.zip
-RUN unzip $HOME/phantomjs-2-source.zip -d $HOME > /dev/null
-RUN rm $HOME/phantomjs-2-source.zip
-WORKDIR phantomjs-2.0.0
-RUN ./build.sh --confirm
-
-WORKDIR $HOME
-
 ### Install the things
 
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu precise main multiverse" >> /etc/apt/sources.list
@@ -38,6 +23,21 @@ RUN apt-get install --no-install-recommends -y -q chromium-browser libudev0 \
   ttf-indic-fonts \
   ttf-dejavu-core ttf-kochi-gothic ttf-kochi-mincho \
   ttf-thai-tlwg
+
+### phantom JS
+
+RUN apt-get install --no-install-recommends -y -q \
+  build-essential g++ flex bison gperf ruby perl \
+  libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev \
+  libpng-dev libjpeg-dev python libx11-dev libxext-dev
+
+RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.0.0-source.zip > phantomjs-2-source.zip
+RUN unzip $HOME/phantomjs-2-source.zip -d $HOME > /dev/null
+RUN rm $HOME/phantomjs-2-source.zip
+WORKDIR phantomjs-2.0.0
+RUN ./build.sh --confirm
+
+WORKDIR $HOME
 
 # It seems I have to pre-set HOME to use it in the ENV DART_SDK setting below
 ENV HOME /root
