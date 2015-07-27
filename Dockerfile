@@ -22,18 +22,18 @@ RUN apt-get install --no-install-recommends -y -q chromium-browser libudev0 \
   ttf-dejavu-core ttf-kochi-gothic ttf-kochi-mincho \
   ttf-thai-tlwg
 
+# It seems I have to pre-set HOME to use it in the ENV DART_SDK setting below
 ENV HOME /root
-ENV DART_VERSION 1.12.0-dev.4.0.0
-#ENV CHANNEL stable
-#ENV DART_VERSION 1.11.1.0
-ENV CHANNEL dev
+#ENV DART_VERSION 1.12.0-dev.4.0.0
+#ENV CHANNEL dev
+ENV CHANNEL stable
+ENV DART_VERSION 1.11.1.0
 ENV archive_url https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest
 
 RUN curl $archive_url/sdk/dartsdk-linux-x64-release.zip > $HOME/dartsdk.zip
 RUN unzip $HOME/dartsdk.zip -d $HOME > /dev/null
 RUN rm $HOME/dartsdk.zip
-# NO CLUE why ENV DART_SDK $HOME/dart-sdk doesn't work
-ENV DART_SDK /root/dart-sdk
+ENV DART_SDK $HOME/dart-sdk
 ENV PATH $DART_SDK/bin:$PATH
 ENV PATH $HOME/.pub-cache/bin:$PATH
 
