@@ -3,6 +3,8 @@
 # BSD-style license that can be found in the LICENSE file.
 FROM ubuntu:12.04
 
+MAINTAINER Kevin Moore "github@j832.com"
+
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu precise main multiverse" >> /etc/apt/sources.list
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise contrib non-free" >> /etc/apt/sources.list
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise-updates contrib non-free" >> /etc/apt/sources.list
