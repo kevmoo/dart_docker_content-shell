@@ -24,10 +24,10 @@ RUN apt-get install --no-install-recommends -y -q chromium-browser libudev0 \
 
 # It seems I have to pre-set HOME to use it in the ENV DART_SDK setting below
 ENV HOME /root
-#ENV DART_VERSION 1.12.0-dev.4.0.0
-#ENV CHANNEL dev
-ENV CHANNEL stable
-ENV DART_VERSION 1.11.1.0
+ENV DART_VERSION 1.12.0-dev.4.0.0
+ENV CHANNEL dev
+#ENV CHANNEL stable
+#ENV DART_VERSION 1.11.1.0
 ENV archive_url https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest
 
 RUN curl $archive_url/sdk/dartsdk-linux-x64-release.zip > $HOME/dartsdk.zip
@@ -45,3 +45,16 @@ RUN rm content_shell.zip
 ENV PATH $HOME/content_shell/drt-lucid64-full-$CHANNEL-$DART_VERSION:$PATH
 
 WORKDIR $HOME
+
+
+### fun!
+
+
+WORKDIR /app
+
+ADD pubspec.yaml /app/
+RUN pub get
+ADD . /app/
+RUN pub get --offline
+
+ENTRYPOINT xvfb-run -s '-screen 0 1024x768x24' pub run test -p vm -p content-shell
