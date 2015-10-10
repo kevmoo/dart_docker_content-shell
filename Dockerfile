@@ -24,7 +24,7 @@ RUN apt-get install --no-install-recommends -y -q chromium-browser libudev0 \
 
 # It seems I have to pre-set HOME to use it in the ENV DART_SDK setting below
 ENV HOME /root
-ENV DART_VERSION 1.12.0-dev.4.0.0
+ENV DART_VERSION 1.13.0-dev.6.0.0
 ENV CHANNEL dev
 #ENV CHANNEL stable
 #ENV DART_VERSION 1.11.1.0
